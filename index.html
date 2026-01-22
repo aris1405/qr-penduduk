@@ -2,34 +2,64 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>QR Data Penduduk</title>
+<title>QR Data Penduduk Gampong</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Library QR -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <style>
-body { font-family: Arial; background:#f2f4f7; }
-.box { width:300px; margin:50px auto; background:white; padding:20px; border-radius:10px; text-align:center; }
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+}
+.box {
+    max-width: 350px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+button {
+    background: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
 </style>
 </head>
+
 <body>
 
 <div class="box">
     <h3>Generate QR Penduduk</h3>
     <input type="text" id="nik" placeholder="Masukkan NIK">
-    <button onclick="buatQR()">Buat QR</button>
-    <div id="qrcode"></div>
+    <button onclick="buatQR()">Buat QR Code</button>
+    <div id="qrcode" style="margin-top:15px;"></div>
 </div>
 
 <script>
 function buatQR() {
-    const nik = document.getElementById("nik").value;
-    if (!nik) return alert("Masukkan NIK");
+    const nik = document.getElementById("nik").value.trim();
+    if (!nik) {
+        alert("NIK wajib diisi");
+        return;
+    }
 
     document.getElementById("qrcode").innerHTML = "";
 
-    // GANTI URL INI SESUAI HOST ANDA
-    const url = "http://localhost/data.html?nik=" + nik;
+    // 🔴 GANTI username DAN nama-repository
+    const baseURL = "https://USERNAME.github.io/qr-penduduk/";
+    const qrURL = baseURL + "data.html?nik=" + encodeURIComponent(nik);
 
     new QRCode(document.getElementById("qrcode"), {
-        text: url,
+        text: qrURL,
         width: 200,
         height: 200
     });
