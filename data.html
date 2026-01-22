@@ -4,32 +4,34 @@
 <meta charset="UTF-8">
 <title>Data Penduduk</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     background: #eef2f5;
 }
 .card {
     background: white;
-    max-width: 400px;
-    margin: 30px auto;
+    max-width: 420px;
+    margin: 40px auto;
     padding: 20px;
     border-radius: 10px;
 }
-.item {
+.row {
     margin-bottom: 8px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
     <h3>Data Penduduk</h3>
-    <div id="hasil"></div>
+    <div id="hasil">Memuat data...</div>
 </div>
 
 <script>
-// DATABASE SEDERHANA (bisa diganti nanti)
+// DATA CONTOH (NANTI BISA DIGANTI DATABASE)
 const penduduk = {
     "1234567890": {
         nama: "Ahmad Fauzi",
@@ -49,17 +51,23 @@ const penduduk = {
 const params = new URLSearchParams(window.location.search);
 const nik = params.get("nik");
 
-if (penduduk[nik]) {
+const hasil = document.getElementById("hasil");
+
+if (!nik) {
+    hasil.innerHTML = "<b>NIK tidak ditemukan pada QR</b>";
+} 
+else if (penduduk[nik]) {
     const p = penduduk[nik];
-    document.getElementById("hasil").innerHTML = `
-        <div class="item"><b>NIK:</b> ${nik}</div>
-        <div class="item"><b>Nama:</b> ${p.nama}</div>
-        <div class="item"><b>Jenis Kelamin:</b> ${p.jk}</div>
-        <div class="item"><b>Alamat:</b> ${p.alamat}</div>
-        <div class="item"><b>Pekerjaan:</b> ${p.pekerjaan}</div>
+    hasil.innerHTML = `
+        <div class="row"><b>NIK:</b> ${nik}</div>
+        <div class="row"><b>Nama:</b> ${p.nama}</div>
+        <div class="row"><b>Jenis Kelamin:</b> ${p.jk}</div>
+        <div class="row"><b>Alamat:</b> ${p.alamat}</div>
+        <div class="row"><b>Pekerjaan:</b> ${p.pekerjaan}</div>
     `;
-} else {
-    document.getElementById("hasil").innerHTML = "<b>Data tidak ditemukan</b>";
+} 
+else {
+    hasil.innerHTML = "<b>Data penduduk tidak ditemukan</b>";
 }
 </script>
 
