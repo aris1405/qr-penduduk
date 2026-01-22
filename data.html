@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Data Penduduk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    font-family: Arial;
+    background: #eef2f5;
+}
+.card {
+    background: white;
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+.item {
+    margin-bottom: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h3>Data Penduduk</h3>
+    <div id="hasil"></div>
+</div>
+
+<script>
+// DATABASE SEDERHANA (bisa diganti nanti)
+const penduduk = {
+    "1234567890": {
+        nama: "Ahmad Fauzi",
+        jk: "Laki-laki",
+        alamat: "Gampong Lamreung, Aceh Besar",
+        pekerjaan: "Petani"
+    },
+    "9876543210": {
+        nama: "Siti Aisyah",
+        jk: "Perempuan",
+        alamat: "Gampong Lamreung, Aceh Besar",
+        pekerjaan: "Ibu Rumah Tangga"
+    }
+};
+
+// Ambil NIK dari URL
+const params = new URLSearchParams(window.location.search);
+const nik = params.get("nik");
+
+if (penduduk[nik]) {
+    const p = penduduk[nik];
+    document.getElementById("hasil").innerHTML = `
+        <div class="item"><b>NIK:</b> ${nik}</div>
+        <div class="item"><b>Nama:</b> ${p.nama}</div>
+        <div class="item"><b>Jenis Kelamin:</b> ${p.jk}</div>
+        <div class="item"><b>Alamat:</b> ${p.alamat}</div>
+        <div class="item"><b>Pekerjaan:</b> ${p.pekerjaan}</div>
+    `;
+} else {
+    document.getElementById("hasil").innerHTML = "<b>Data tidak ditemukan</b>";
+}
+</script>
+
+</body>
+</html>

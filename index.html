@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>QR Data Penduduk</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+body { font-family: Arial; background:#f2f4f7; }
+.box { width:300px; margin:50px auto; background:white; padding:20px; border-radius:10px; text-align:center; }
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h3>Generate QR Penduduk</h3>
+    <input type="text" id="nik" placeholder="Masukkan NIK">
+    <button onclick="buatQR()">Buat QR</button>
+    <div id="qrcode"></div>
+</div>
+
+<script>
+function buatQR() {
+    const nik = document.getElementById("nik").value;
+    if (!nik) return alert("Masukkan NIK");
+
+    document.getElementById("qrcode").innerHTML = "";
+
+    // GANTI URL INI SESUAI HOST ANDA
+    const url = "http://localhost/data.html?nik=" + nik;
+
+    new QRCode(document.getElementById("qrcode"), {
+        text: url,
+        width: 200,
+        height: 200
+    });
+}
+</script>
+
+</body>
+</html>
